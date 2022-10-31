@@ -1,0 +1,57 @@
+[
+      {"ID":"1072928",
+        "Name": "Kevin John",
+        "ContactNumber": "0563997538",
+        "Email": "1072928@students.adu.ac.ae",
+        "Position": "Student",
+        "Password": "password"
+  },
+
+  {"ID":"1011330",
+    "Name": "Andrea Lee",
+    "ContactNumber": "050125348",
+    "Email": "Andrea.Lee@adu.ac.ae",
+    "Position": "Staff",
+    "Password": "123456"
+},
+
+{"ID":"1053284",
+  "Name": "Scarlett Flowers",
+  "ContactNumber": "0526547892",
+  "Email": "Scarlett.Flowers@adu.ac.ae",
+  "Position": "Staff",
+  "Password": "p@$$w0rd"
+},
+
+{"ID":"1076332",
+  "Name": "Alexandra Ball",
+  "ContactNumber": "054325678",
+  "Email": "1076332@students.adu.ac.ae",
+  "Position": "Student",
+  "Password": "123_456"
+},
+
+{"ID":"2000001",
+  "Name": "Fabian Howard",
+  "ContactNumber": "0501234567",
+  "Email": "deliverycomp@dc.com",
+  "Position": "Delivery",
+  "Password": "fabian"
+},
+
+{"ID":"2000002",
+  "Name": "Henry May",
+  "ContactNumber": "0579876543",
+  "Email": "deliverycomp@dc.com",
+  "Position": "Delivery",
+  "Password": "henry"
+},
+
+{"ID":"2000003",
+  "Name": "John Trivett",
+  "ContactNumber": "0502341523",
+  "Email": "deliverycomp@dc.com",
+  "Position": "Delivery",
+  "Password": "john"
+}
+]

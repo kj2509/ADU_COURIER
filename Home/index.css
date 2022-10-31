@@ -1,0 +1,141 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  overflow: hidden;
+}
+
+.picture{
+  width: 120px;
+  height: 120px;
+  position: relative;
+}
+
+.design{
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #dd9d51;
+  position: absolute;
+  /* display: flex; */
+  clip-path: circle(450px at left 950px);
+}
+
+.design2{
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #dd9d51;
+  position: absolute;
+  /* display: flex; */
+  clip-path: circle(450px at right -150px);
+}
+
+.courierimage{
+  width: 500px;
+  height: 400px;
+  /* -ms-transform: rotate(7deg);
+  transform: rotate(7deg); */
+}
+
+
+section{
+  padding: 95px;
+  width: 100%;
+  position: relative;
+  min-height: 100vh;
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  background-color: #f4efcd;
+
+}
+
+header{
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  padding-right: 50px;
+  padding-left: 50px;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+header ul{
+  display: flex;
+  position: relative;
+
+}
+
+header ul li{
+  list-style: none;
+}
+
+header ul li a{
+  color: #3f3d56;
+  display: inline-block;
+  font-weight: 300;
+  margin-left: 60px;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+header ul li a:hover{
+  color: black;
+
+}
+.secondpart{
+  position: relative;
+  align-items: center;
+  width: 100%;
+  margin-left: 80px;
+  justify-content: space-between;
+  display: flex;
+  background: transparent;
+  margin-top: -90px;
+}
+
+.leftpart{
+  position: relative;
+  max-width: 600px;
+  padding-left: 20px;
+  color: ##3f3d56;
+}
+
+.leftpart h1{
+  text-align: center;
+  font-family: cursive;
+  font-weight: 400;
+  font-size: 60px;
+  color: #3f3d56;
+}
+
+.leftpart h3{
+  text-align: center;
+  font-family: cursive;
+  font-weight: 400;
+  font-size: 20px;
+  color: #3f3d56;
+}
+
+
+.leftpart p{
+  text-align: justify;
+  font-family: cursive;
+  font-size: 17px;
+  color: #3f3d56;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.rightpart{
+  display: flex;
+  padding-right: 10px;
+  justify-content: flex-end;
+
+}

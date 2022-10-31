@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Packages</title>
+    <link rel="stylesheet" href="main.css" >
+  </head>
+  <body>
+    <section>
+        <div class="design"></div>
+          <div class="design2"></div>
+            <header>
+            <img src="logo2.png" alt="" class="picture">
+            <h2 id="username"></h2>
+            <ul>
+              <li>
+                <form action="/login.html" method="post">
+                    <a href ="/login.html" onclick="logout()">Logout</a>
+                </form>
+
+              </li>
+            </ul>
+            </header>
+
+      <div class="secondpart">
+
+        <div class="tabsbox">
+          <button type="button" id="send" onclick="opensend()" name="button">Send Package</button>
+          <button type="button" id="track" onclick="opentrack()" name="button">Track Packages</button>
+          <button type="button" id="sent" onclick="opensent()" name="button">Sent Packages</button>
+        </div>
+        <div id="one" class="part">
+          <div class="left">
+
+            <form class="" action="/createrequest" method="post">
+              <label class="title">Type of package to send</label><br><br>
+              <input type="text" name="type" value="" placeholder="Please specify the package required" class="inputfield" id="packagetype">
+              <br>
+              <label class="title">Contact Number</label><br><br>
+              <input type="text" name="contactnumber" value="" placeholder="Please specifiy the package required" class="inputfield" id="contactnb">
+              <br><br>
+              <input type="radio" name="ad" value="AcrossC" class="inputRadio" checked="checked"> Across the Campus
+              <input type="radio" name="ad" value="AcrossE" class="inputRadio"> Across the Emirate
+              <input type="radio" name="ad" value="outsideE" class="inputRadio"> Outside the Emirate
+              <br><br>
+              <label class="title">Pick up Address</label><br><br>
+
+              <textarea name="pickup" rows="8" cols="80" placeholder="Please specify the address" id="pickup"></textarea>
+
+              <br><br>
+              <label class="title">Drop off Address</label><br><br>
+
+              <textarea name="dropoff" rows="8" cols="80" placeholder="Please specify the address" id="dropoff"></textarea>
+
+              <input type="text" name="place" value="" id="choice" style="display:none">
+              <input type="text" name="cost" value="" id="costs" style="display:none">
+              <input type="text" name="comments" value="NA" style="display:none">
+              <input type="text" name="CustomerID" value="" id="custID" style="display:none">
+              <input type="text" name="DeliveryID" value="NA" style="display:none">
+              <input type="text" name="DeliveryNb" value="NA" style="display:none">
+              <input type="text" name="Status" value="Pending" style="display:none">
+
+              <input type="submit" name="" value="SAVE" class="btnSave" onclick="saveinfo()">
+
+            </form>
+
+          </div>
+          <div class="right">
+            <img src="courierhomeO1.png" alt="" class="image">
+          </div>
+        </div>
+
+        <div id="two" class="part">
+
+          <div class="left">
+            <h1 class="tableTitle">Out For Delivery Requests</h1>
+
+            <div class="wraptable">
+            <table class="tabledesign">
+              <thead>
+                <tr>
+                  <th>Request ID</th>
+                  <th>Delivery Nb</th>
+                  <th>Address Pickup</th>
+                  <th>Address Drop off</th>
+                  <th>Comments</th>
+                  <th>Cost</th>
+                </tr>
+              </thead>
+
+                <tbody id="tablebody"></tbody>
+
+            </table>
+          </div>
+          </div>
+          <div class="right">
+            <img src="courierhomeO2.png" alt="" class="image">
+          </div>
+        </div>
+
+        <div id="three" class="part">
+          <div class="left">
+            <h1 class="tableTitle">Delivered Requests</h1>
+            <div class="wraptable">
+            <table class="tabledesign">
+              <thead>
+                <tr>
+                  <th>Request ID</th>
+                  <th>Delivery Nb</th>
+                  <th>Address Pickup</th>
+                  <th>Address Drop off</th>
+                  <th>Comments</th>
+                  <th>Cost</th>
+                </tr>
+              </thead>
+              <tbody id="deliveredReq"></tbody>
+            </table>
+          </div>
+          </div>
+
+          <div class="right">
+            <img src="courierhomeO3.png" alt="" class="image">
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <script>
+
+    var userid = localStorage.getItem("ID");
+    var position;
+    var tablebody = document.getElementById('tablebody');
+    var deliveredRequest = document.getElementById('deliveredReq');
+
+    window.onload = function(){
+      var custID = document.getElementById('custID').value = userid;
+      var request = new XMLHttpRequest();
+      request.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          var usersgroup = this.responseText;
+           var usersarray = JSON.parse(usersgroup);
+           for (var users in usersarray){
+             if (usersarray[users].ID == userid){
+                 console.log(userid);
+                document.getElementById("username").innerHTML =usersarray[users].Name;
+                position = usersarray[users].Position;
+             }
+           }
+        }
+      };
+
+      request.open("GET", "/Users", true);
+      request.send();
+
+      var tablerequest = new XMLHttpRequest();
+      var tablecontent = "";
+      tablerequest.onreadystatechange = function(){
+
+        if (this.readyState == 4 && this.status == 200) {
+          var trackreq = this.responseText;
+           var trackarray = JSON.parse(trackreq);
+           if (trackarray.length){
+             for (var track in trackarray){
+               tablecontent +="<tr><td>"+trackarray[track]._id+"</td><td>"+trackarray[track].DeliveryNb+"</td><td>"+trackarray[track].pickup+"</td><td>"+trackarray[track].dropoff+"</td><td>"+trackarray[track].comments+"</td><td>"+trackarray[track].cost+"</td>";
+             }
+             tablebody.innerHTML = tablecontent;
+           }
+        }
+      };
+      tablerequest.open("GET", "/TrackPackage", true);
+      tablerequest.send();
+
+
+      var deliveredReq = new XMLHttpRequest();
+      var deliveredcontent= "";
+      deliveredReq.onreadystatechange = function(){
+
+        if (this.readyState == 4 && this.status == 200) {
+          var deliveredreq = this.responseText;
+           var deliveredarray = JSON.parse(deliveredreq);
+           if (deliveredarray.length){
+             for (var deliver in deliveredarray){
+               deliveredcontent +="<tr><td>"+deliveredarray[deliver]._id+"</td><td>"+deliveredarray[deliver].DeliveryNb+"</td><td>"+deliveredarray[deliver].pickup+"</td><td>"+deliveredarray[deliver].dropoff+"</td><td>"+deliveredarray[deliver].comments+"</td><td>"+deliveredarray[deliver].cost+"</td>";
+             }
+             deliveredRequest.innerHTML = deliveredcontent;
+           }
+        }
+      };
+      deliveredReq.open("GET", "/SentPackages", true);
+      deliveredReq.send();
+  };
+
+      function logout(){
+        localStorage.removeItem("ID");
+      }
+
+      function opensend() {
+          document.getElementById("one").style.display="flex";
+          document.getElementById("send").style.background="#3f3d56";
+          document.getElementById("send").style.color="#f4efcd";
+
+          document.getElementById("two").style.display="none";
+          document.getElementById("track").style.background="#f4efcd";
+          document.getElementById("track").style.color="#3f3d56";
+
+          document.getElementById("three").style.display="none";
+          document.getElementById("sent").style.color="#3f3d56";
+          document.getElementById("sent").style.background="#f4efcd";
+}
+
+      function opentrack() {
+          document.getElementById("two").style.display="flex";
+          document.getElementById("track").style.background="#3f3d56";
+          document.getElementById("track").style.color="#f4efcd";
+
+          document.getElementById("one").style.display="none";
+          document.getElementById("send").style.background="#f4efcd";
+          document.getElementById("send").style.color="#3f3d56";
+
+          document.getElementById("three").style.display="none";
+          document.getElementById("sent").style.color="#3f3d56";
+          document.getElementById("sent").style.background="#f4efcd";
+}
+
+
+      function opensent() {
+          document.getElementById("three").style.display="flex";
+          document.getElementById("sent").style.background="#3f3d56";
+          document.getElementById("sent").style.color="#f4efcd";
+
+          document.getElementById("one").style.display="none";
+          document.getElementById("send").style.background="#f4efcd";
+          document.getElementById("send").style.color="#3f3d56";
+
+          document.getElementById("two").style.display="none";
+          document.getElementById("track").style.color="#3f3d56";
+          document.getElementById("track").style.background="#f4efcd";
+}
+
+    function saveinfo(){
+
+      var packagetype = document.getElementById("packagetype").value;
+      var contactnb = document.getElementById("contactnb").value;
+      var dropoff = document.getElementById("dropoff").value;
+      var pickup = document.getElementById("pickup").value;
+
+      var ad = document.getElementsByName('ad');
+      var location;
+      var id = localStorage.getItem("ID");
+      var choice = document.getElementById('choice');
+
+      for (place in ad) {
+        if (ad[place].checked) {
+          location = ad[place].value;
+          choice.value = location;
+          break;
+        }
+      }
+
+      var cost = document.getElementById('costs');
+          if (position =="Staff"){
+               cost.value = "NA";
+          }else if (position == "Student"){
+            if (location == "AcrossC"){
+              cost.value = "5AED";
+            }else if (location =="AcrossE"){
+              cost.value = "10AED";
+            }else if (location == "outsideE"){
+              cost.value = "30AED";
+            }
+          }
+    }
+
+    </script>
+
+  </body>
+</html>

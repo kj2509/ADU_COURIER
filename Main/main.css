@@ -1,0 +1,282 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+
+  /* background-color: #f4efcd; */
+
+}
+
+.picture{
+  width: 120px;
+  height: 120px;
+  position: relative;
+  /* margin-top: 0px; */
+}
+
+#username{
+  color:#3f3d56;
+}
+
+.image{
+  width: 500px;
+  height: 360px;
+}
+
+.design{
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #dd9d51;
+  position: absolute;
+  /* display: flex; */
+  clip-path: circle(450px at left 950px);
+}
+
+.design2{
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #dd9d51;
+  position: absolute;
+  /* display: flex; */
+  clip-path: circle(450px at right -150px);
+}
+
+section{
+  padding: 100px;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f4efcd;
+  overflow: hidden;
+}
+
+header{
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  padding-right: 100px;
+  padding-left: 50px;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+header ul{
+  display: flex;
+  position: relative;
+
+}
+
+header ul li{
+  list-style: none;
+}
+
+header ul li a{
+  color: #3f3d56;
+  display: inline-block;
+  font-weight: 300;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+header ul li a:hover{
+  color: black;
+}
+
+.secondpart{
+  position: relative;
+  width: 100%;
+  /* margin-top: 20px; */
+  /* margin-bottom: 100px; */
+  overflow:hidden;
+}
+
+.btnSave{
+  background-color: #3f3d56;
+  cursor: pointer;
+  border: none;
+  color: #f4efcd;
+  text-align: center;
+  border-radius: 40px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 25px;
+  padding-right: 25px;
+  font-family: sans-serif;
+  font-size: 16px;
+  float: right;
+  /* margin-top: 10px; */
+
+}
+
+
+.tabsbox{
+  display: flex;
+  border-bottom: 2px solid #3f3d56;
+  margin-bottom: 17px;
+  margin-left: 100px;
+  margin-top: 10px;
+
+}
+
+.tabsbox button{
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-family: sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  color:#3f3d56;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+   padding-right: 20px;
+  margin-right: 50px;
+}
+
+.tabsbox button:hover{
+  color: black;
+}
+
+.part{
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  /* position: absolute;
+  transform: translateX(100%); */
+
+}
+
+
+.part .left{
+  flex-basis: 50%;
+  margin-left: 50px;
+
+}
+
+.part .right{
+  flex-basis: 50%;
+  width: 300px;
+  height: 400px;
+}
+.title{
+  color: #3f3d56;
+}
+
+textarea{
+  width: 350px;
+  height: 70px;
+  background-color: white;
+  color: #3f3d56;
+  padding-left: 10px;
+  padding-top: 5px;
+  resize: none;
+  margin-left: 30px;
+}
+
+.inputfield{
+  height: 30px;
+  width: 250px;
+  background-color: white;
+  color: #3f3d56;
+  padding-left: 10px;
+  display: block;
+  margin-left: 30px;
+}
+
+.inputRadio{
+  margin-left: 30px;
+}
+
+.tableTitle{
+  color: #3f3d56;
+  text-align: center;
+  margin-top: 5px;
+}
+
+.wraptable{
+  overflow-y:auto;
+  height:420px;
+  width: 830px;
+  margin-right:-10px;
+  margin-top: 5px;
+
+}
+
+.tabledesign{
+  border-collapse: separate;
+  margin: 26px 0 0 0;
+  min-width: 400px;
+  width: 700px;
+  max-width: 700px;
+}
+
+.tabledesign thead tr{
+  background-color: #3f3d56;
+  color: #f4efcd;
+  text-align: left;
+  font-weight: bold;
+}
+
+.tabledesign th, .tabledesign td{
+  padding: 15px 15px;
+}
+
+.tabledesign tbody tr:nth-of-type(odd){
+  background-color:#f4efcd;
+  color:#3f3d56;
+}
+.tabledesign tbody tr:nth-of-type(even){
+  background-color:#3f3d56;
+  color:#f4efcd;
+}
+
+
+/* .history{
+  border-collapse: separate;
+  margin: 26px 0;
+  min-width: 400px;
+}
+
+.history thead tr{
+  background-color: #3f3d56;
+  color: #f4efcd;
+  text-align: left;
+  font-weight: bold;
+}
+
+.history th, .history td{
+  padding: 15px 15px;
+}
+
+.history tbody tr:nth-of-type(odd){
+  background-color:#f4efcd;
+  color:#3f3d56;
+}
+.history tbody tr:nth-of-type(even){
+  background-color:#3f3d56;
+  color:#f4efcd;
+} */
+#one{
+
+  display: flex;
+}
+
+#two{
+  display: none;
+}
+
+#three{
+  display: none;
+}
+
+#send{
+  background-color:#3f3d56;
+  color:#f4efcd;
+}

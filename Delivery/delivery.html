@@ -1,0 +1,285 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Delivery</title>
+    <link rel="stylesheet" href="delivery.css" >
+  </head>
+  <body>
+    <section>
+      <div class="design"></div>
+        <div class="design2"></div>
+      <header>
+          <img src="logo2.png" alt="" class="picture">
+            <h2 id="username"></h2>
+
+        <ul>
+          <li>
+            <form action="/login.html" method="post">
+                <a href ="/login.html" onclick="logout()">Logout</a>
+            </form>
+
+          </li>
+        </ul>
+      </header>
+
+      <div class="secondpart">
+
+        <div class="tabsbox">
+          <button type="button" id="send" onclick="opensend()" name="button">Requests</button>
+          <button type="button" id="track" onclick="opentrack()" name="button">Pending Requests</button>
+          <button type="button" id="sent" onclick="opensent()" name="button">Delivered Requests</button>
+        </div>
+        <div id="one" class="part">
+          <div class="left">
+            <h1 class="tableTitle">Delivery Requests</h1>
+            <div class="wraptable">
+            <table class="tabledesign">
+              <thead>
+                <tr>
+                  <th>Request ID</th>
+                  <th>Contact Number</th>
+                  <th>Pick up Address</th>
+                  <th>Drop off Address</th>
+                  <th>Confirmation</th>
+                </tr>
+              </thead>
+              <tbody id="requestsbody"></tbody>
+            </table>
+          </div>
+          <form class="" action="/acceptrequests" method="post">
+            <input type="text" name="reqIDselected" id="selectedreq" style="display:none">
+            <input type="submit" name="" value="Confirm" class="btnSave" onclick="checkbuttons()">
+          </form>
+          </div>
+          <div class="right">
+            <img src="courierhomeO4.png" alt="" class="image">
+          </div>
+        </div>
+
+        <div id="two" class="part">
+          <div class="left">
+            <h1 class="tableTitle">Pending Delivery Requests</h1>
+            <div class="wraptable">
+            <table class="tabledesign">
+              <thead>
+                <tr>
+                  <th>Request ID</th>
+                  <th>Contact Number</th>
+                  <th>Pick up Address</th>
+                  <th>Drop off Address</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="todeliver"></tbody>
+            </table>
+          </div>
+          <form class="" action="/statusrequests" method="post">
+            <input type="text" name="statusIDselected" id="statusIDreq" style="display:none">
+            <input type="submit" name="" value="Confirm" class="btnSave" onclick="deliveredBtn()">
+          </form>
+
+          </div>
+          <div class="right">
+            <img src="delivery2.png" alt="" class="image">
+          </div>
+        </div>
+
+        <div id="three" class="part">
+          <div class="left">
+            <h1 class="tableTitle">Delivered Requests</h1>
+            <div class="wraptable">
+            <table class="tabledesign">
+              <thead>
+                <tr>
+                  <th>Request ID</th>
+                  <th>Customer ID</th>
+                  <th>Contact Number</th>
+                  <th>Pick up Address</th>
+                  <th>Drop off Address</th>
+
+                </tr>
+              </thead>
+              <tbody id="delivered"></tbody>
+            </table>
+          </div>
+          </div>
+
+          <div class="right">
+            <img src="delivery.png" alt="" class="image">
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+    <script>
+
+    var userid = localStorage.getItem("ID");
+
+    console.log(userid);
+    var selectedreq = document.getElementById("selectedreq");
+    var requestsbody = document.getElementById("requestsbody");
+    var delivered = document.getElementById("delivered");
+    var todeliver = document.getElementById("todeliver");
+
+    window.onload = function(){
+      var request = new XMLHttpRequest();
+      request.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          var usersgroup = this.responseText;
+           var usersarray = JSON.parse(usersgroup);
+           for (var users in usersarray){
+             if (usersarray[users].ID == userid){
+                 console.log("hello" + userid);
+                document.getElementById("username").innerHTML =usersarray[users].Name;
+             }
+           }
+        }
+      };
+      request.open("GET", "/Users", true);
+      request.send();
+
+      var drequests = new XMLHttpRequest();
+      var dtablerequests = "";
+      drequests.onreadystatechange = function(){
+      if (this.readyState == 4 && this.status == 200) {
+          var listRequest =this.responseText;
+          var listarray = JSON.parse(listRequest);
+          if(listarray.length){
+            for (var listReq in listarray){
+              dtablerequests += "<tr><td>"+ listarray[listReq]._id+"</td><td>"+listarray[listReq].contactnumber+"</td><td>"+listarray[listReq].pickup + "</td><td>"+listarray[listReq].dropoff + "</td><td><input id='check' type='checkbox' value='"+listarray[listReq]._id+"'>Accept</td></tr>";
+            }
+              requestsbody.innerHTML = dtablerequests;
+          }
+        }
+      };
+      drequests.open("GET", "/DeliveryRequests", true);
+      drequests.send();
+
+
+      var doneRequests = new XMLHttpRequest();
+      var donetable = "";
+      doneRequests.onreadystatechange = function(){
+      if (this.readyState == 4 && this.status == 200) {
+          var listdelivered =this.responseText;
+          var listdelivery = JSON.parse(listdelivered);
+          if(listdelivery.length){
+            for (var listdel in listdelivery){
+              donetable += "<tr><td>"+ listdelivery[listdel]._id+"</td><td>"+listdelivery[listdel].CustomerID+"</td><td>"+listdelivery[listdel].contactnumber + "</td><td>"+listdelivery[listdel].pickup + "</td><td>" +listdelivery[listdel].dropoff + "</td></tr>" ;
+            }
+              delivered.innerHTML = donetable;
+          }
+        }
+      };
+      doneRequests.open("GET", "/Delivered", true);
+      doneRequests.send();
+
+
+      var pendingrequests = new XMLHttpRequest();
+      var ptablerequests = "";
+      pendingrequests.onreadystatechange = function(){
+      if (this.readyState == 4 && this.status == 200) {
+          var listPendingRequest =this.responseText;
+          var listParray = JSON.parse(listPendingRequest);
+          if(listParray.length){
+            for (var pReq in listParray){
+              ptablerequests += "<tr><td>"+ listParray[pReq]._id+"</td><td>"+listParray[pReq].contactnumber+"</td><td>"+listParray[pReq].pickup + "</td><td>"+listParray[pReq].dropoff + "</td><td><input type='checkbox' value='"+listParray[pReq]._id+"'>Delivered</td></tr>";
+            }
+              todeliver.innerHTML = ptablerequests;
+          }
+        }
+      };
+      pendingrequests.open("GET", "/DeliveryPending", true);
+      pendingrequests.send();
+
+    };
+
+    function checkbuttons(){
+     var check = document.getElementById("check");
+     var selectedreq = document.getElementById("selectedreq");
+      var arrayreq =[];
+      var checkbox = requestsbody.getElementsByTagName("INPUT");
+      for (var i =0; i<checkbox.length; i++){
+        if (checkbox[i].checked){
+          console.log("checked "+checkbox[i].value);
+            arrayreq.push(checkbox[i].value);
+        }
+      }
+      selectedreq.value=arrayreq;
+      console.log(selectedreq.value);
+}
+
+function deliveredBtn(){
+
+ var statusIDreq = document.getElementById("statusIDreq");
+  var arraydelivery =[];
+  var checkbox = todeliver.getElementsByTagName("INPUT");
+  for (var i =0; i<checkbox.length; i++){
+    if (checkbox[i].checked){
+      console.log("checked boxes "+checkbox[i].value);
+        arraydelivery.push(checkbox[i].value);
+    }
+  }
+  statusIDreq.value=arraydelivery;
+  console.log(statusIDreq.value);
+}
+
+
+
+
+      function logout(){
+        localStorage.removeItem("ID");
+      }
+
+      function opensend() {
+          document.getElementById("one").style.display="flex";
+          document.getElementById("send").style.background="#3f3d56";
+          document.getElementById("send").style.color="#f4efcd";
+
+          document.getElementById("two").style.display="none";
+          document.getElementById("track").style.background="#f4efcd";
+          document.getElementById("track").style.color="#3f3d56";
+
+          document.getElementById("three").style.display="none";
+          document.getElementById("sent").style.color="#3f3d56";
+          document.getElementById("sent").style.background="#f4efcd";
+}
+
+      function opentrack() {
+          document.getElementById("two").style.display="flex";
+          document.getElementById("track").style.background="#3f3d56";
+          document.getElementById("track").style.color="#f4efcd";
+
+          document.getElementById("one").style.display="none";
+          document.getElementById("send").style.background="#f4efcd";
+          document.getElementById("send").style.color="#3f3d56";
+
+          document.getElementById("three").style.display="none";
+          document.getElementById("sent").style.color="#3f3d56";
+          document.getElementById("sent").style.background="#f4efcd";
+}
+
+
+      function opensent() {
+          document.getElementById("three").style.display="flex";
+          document.getElementById("sent").style.background="#3f3d56";
+          document.getElementById("sent").style.color="#f4efcd";
+
+          document.getElementById("one").style.display="none";
+          document.getElementById("send").style.background="#f4efcd";
+          document.getElementById("send").style.color="#3f3d56";
+
+          document.getElementById("two").style.display="none";
+          document.getElementById("track").style.color="#3f3d56";
+          document.getElementById("track").style.background="#f4efcd";
+}
+
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,14 @@
+BLUE
+#3f3d56
+rgba(63,61,86,255)
+
+
+ORANGE
+#dd9d51
+rgba(221,157,81,255)
+
+
+YELLOW
+
+#f4efcd
+

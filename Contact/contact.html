@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Contact us</title>
+    <link rel="stylesheet" href="contact.css" >
+  </head>
+  <body>
+    <section>
+      <div class="design"></div>
+      <div class="pic"></div>
+    <div class="box">
+      <img src="contact.png" alt="" class="usericon">
+      <h1>Contact us</h1>
+        <p  class="headings">Email</p>
+        <input type="text" name="" value="" class="fields" id="emailfield">
+        <p class="headings">Comments</p>
+        <textarea id="commentsfield"  name="comments" rows="8" cols="80" class="areacomments"></textarea>
+        <br>
+        <input type="submit" name="" value="Submit" class="buttonlogin" onclick="sendMessage()">
+
+    </div>
+  </section>
+
+
+<script>
+
+function sendMessage() {
+  var emailfield = document.getElementById('emailfield');
+  var commentsfield = document.getElementById('commentsfield');
+
+  if (emailfield.value !="" && commentsfield.value !=""){
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        alert(this.responseText);
+        commentsfield.value="";
+        emailfield.value="";
+      }
+    };
+    request.open("GET", "comments.txt", true);
+    request.send();
+  }else{
+    alert ("Please fill the required fields");
+  }
+
+ }
+
+
+</script>
+
+
+  </body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="login.css" >
+  </head>
+  <body>
+    <section>
+      <div class="design"></div>
+      <div class="pic"></div>
+      <div class="box">
+        <img src="log.png" alt="" class="usericon">
+        <h1>Login</h1>
+        <p class="headings">ID/Username</p>
+        <input type="text" name="" value="" class="fields" id="usernamefield">
+        <p class="headings">Password</p>
+        <input type="password" name="" value="" class="fields" id="passwordfield">
+        <input type="submit" name="" value="Verify User" class="buttonlogin" onclick="login()">
+
+        <form id="formaction" method="post">
+          <input type="text" name="idcustomer" value="" style="display:none" id="idcustomer">
+          <input type="text" name="iddelivery" value="" style="display:none" id="iddelivery">
+          <input type="text" name="nbdelivery" value="" style="display:none" id="nbdelivery">
+          <input type="submit" name="" value="Login" class="buttonlogin" id="logbt">
+        </form>
+
+        <br>
+        <a href="https://pwms.quicklaunchsso.com/api/open/showOpenChangePassword?tenantDomain=myadu.edu&returnUrl=https:%2F%2Fmy.adu.ac.ae" style=" text-decoration: none;"> <p class="pswd">Forget Password?</p></a>
+      </div>
+  </section>
+
+  <script>
+  var logbt = document.getElementById('logbt');
+  var usernamefield = document.getElementById('usernamefield');
+  var passwordfield = document.getElementById('passwordfield');
+  var formaction = document.getElementById('formaction');
+  var idcustomer = document.getElementById('idcustomer');
+  var iddelivery = document.getElementById('iddelivery');
+  var nbdelivery = document.getElementById('nbdelivery');
+
+  window.onload = function(){
+    logbt.disabled=true;
+  };
+
+  function login() {
+
+     if (usernamefield.value !="" && passwordfield.value !=""){
+
+      var request = new XMLHttpRequest();
+      request.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          var usersgroup = this.responseText;
+           var usersarray = JSON.parse(usersgroup);
+           for (var users in usersarray){
+             if (usersarray[users].ID == usernamefield.value){
+               if (usersarray[users].Password == passwordfield.value){
+                 localStorage.setItem("ID", usernamefield.value);
+                 if (usersarray[users].Position == "Student" || usersarray[users].Position =="Staff"){
+                   idcustomer.value =usernamefield.value;
+                   formaction.action = "/main.html";
+                    logbt.disabled = false;
+                 }else if (usersarray[users].Position == "Delivery"){
+                   iddelivery.value =usernamefield.value;
+                   nbdelivery.value = usersarray[users].ContactNumber;
+                   console.log(typeof iddelivery.value);
+                   formaction.action = "/delivery.html";
+                   logbt.disabled = false;
+                 }
+               }
+             }
+           }
+        }
+      };
+      request.open("GET", "/Users", true);
+      request.send();
+    }else{
+
+      alert ("Please fill the required fields");
+    }
+
+   }
+  </script>
+
+  </body>
+</html>

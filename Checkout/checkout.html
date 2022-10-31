@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="checkout.css" >
+  </head>
+  <body>
+    <section>
+      <div class="design"></div>
+      <div class="pic"></div>
+    <div class="box">
+
+      <h1>Checkout</h1>
+
+        <p class="headings" id="reqID">Request ID: 390720</p>
+        <p class="headings" id="senderID">Sender ID: 1078989</p>
+        <p class="headings" id="adPickup">Address Pickup: ADU</p>
+        <p class="headings" id="adDrop">Address Drop off: Sorbon</p>
+        <p class="headings" id="reqType">Parcel: Transcript</p>
+        <p class="headings" id="cost">Cost: 0.00 AED</p>
+        <br><br>
+        <form class="" action="/saveRequest" method="Post">
+          <p class="headings">Additional Comments</p>
+          <textarea name="comments" rows="8" cols="80" class="areacomments"></textarea>
+          <input type="submit" name="" value="Send Parcel" class="buttoncheck">
+        </form>
+        <form class="" action="/cancelRequest" method="Post">
+          <input type="submit" name="" value="Cancel" class="buttoncheck">
+        </form>
+        <br>
+
+
+    </div>
+  </section>
+  <script>
+  window.onload = function(){
+    var reqID = document.getElementById('reqID');
+    var senderID = document.getElementById('senderID');
+    var adPickup = document.getElementById('adPickup');
+    var adDrop = document.getElementById('adDrop');
+    var reqType = document.getElementById('reqType');
+    var cost = document.getElementById('cost');
+
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        var requestsData = this.responseText;
+         var reqData = JSON.parse(requestsData);
+         reqID.innerHTML= "Request ID: "+reqData[0]._id;
+         senderID.innerHTML = "Sender ID: "+ reqData[0].CustomerID;
+         adPickup.innerHTML = "Pickup Address: "+ reqData[0].pickup;
+         adDrop.innerHTML = "Dropoff Address: "+ reqData[0].dropoff;
+         reqType.innerHTML ="Type of Package: "+ reqData[0].type;
+         cost.innerHTML = "Delivery Cost: "+ reqData[0].cost;
+
+      }
+    };
+
+    request.open("GET", "/CustomerRequests", true);
+    request.send();
+  };
+
+
+
+  </script>
+  </body>
+</html>

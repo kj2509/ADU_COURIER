@@ -1,0 +1,111 @@
+body{
+  background-color: #f4efcd;
+  font-family: sans-serif;
+}
+
+.box{
+  position: absolute;
+  width: 65%;
+  height: 90%;
+  background-color: #3f3d56;
+  color: #f4efcd;
+  box-shadow: 20px;
+  box-sizing:border-box;
+  padding-top: 50px;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  border-radius: 40px;
+}
+
+
+
+.box h1{
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.box .headings{
+  padding-left:20px;
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.pswd{
+ text-align: center;
+ outline: none;
+ font-size: 15px;
+ color: #f4efcd;
+}
+
+.pswd:hover{
+  color: #dd9d51;
+}
+
+.fields{
+  border: none;
+  background: transparent;
+  border-bottom: 1px solid #f4efcd;
+  font-size: 15px;
+  color:#f4efcd;
+  outline: none;
+}
+
+.buttoncheck{
+  border: none;
+  outline: none;
+  background-color: #dd9d51;
+  color: #f4efcd;
+  font-size: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  float: right;
+  margin-right: 35px;
+  width: 12%;
+}
+
+.buttoncheck:hover{
+  background-color: #f4efcd;
+  color: #dd9d51;
+}
+
+.design{
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #dd9d51;
+  position: absolute;
+  clip-path: circle(450px at right 950px);
+}
+
+.areacomments{
+  resize: none;
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 20px;
+  background: #f4efcd;
+  width: 84%;
+  height: 70px;
+  margin-bottom: 15px;
+  margin-left: 20px;
+  font-family: sans-serif;
+  font-size: 15px;
+  color:#3f3d56;
+  outline: none;
+
+}
+
+.pic{
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #dd9d51;
+  clip-path: circle(450px at left -180px);
+  /* background: url(loginw.png); */
+}
